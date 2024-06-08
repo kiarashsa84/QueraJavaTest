@@ -1,0 +1,179 @@
+سرویس ایمیل
+
+در این تمرین می‌خواهیم سرویسی را پیاده‌سازی کنیم تا کاربران بتوانند ایمیل ارسال و دریافت کنند.
+
+پروژه‌ی اولیه‌ی را می‌توانید از این لینک دانلود کنید.
+
+جزئیات پروژه
+ساختار فایل پروژه
+mail-service
+    ├── Mail.java
+    ├── MailService.java
+    ├── MailAgent.java
+    └── User.java
+Plain text
+کلاس Mail
+اشیای این کلاس بیانگر یک ایمیل ارسالی از طرف یک کاربر به کاربر دیگر است.
+
+extensionFromNameMail.java
+public class Mail {
+    private final User sender;
+    private final User receiver;
+    private final String content;
+    private boolean read = false;
+
+    public Mail(User sender, User receiver, String content) {
+        // TODO: Implement
+    }
+
+    public User getSender() {
+        // TODO: Implement
+    }
+
+    public User getReceiver() {
+        // TODO: Implement
+    }
+
+    public String getContent() {
+        // TODO: Implement
+    }
+
+    public boolean isRead() {
+        // TODO: Implement
+    }
+
+    public void setRead(boolean read) {
+        // TODO: Implement
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // TODO: Implement
+    }
+
+    @Override
+    public String toString() {
+        // TODO: Implement
+    }
+}
+Java
+پراپرتی‌ها
+sender: فرستنده ایمیل از نوع User
+receiver: گیرنده ایمیل از نوع User
+content: محتوای ایمیل از نوع String
+read: خوانده‌شده یا خوانده‌نشده از نوع boolean
+متدها
+شما برای این کلاس باید متد equals را به شکل صحیح و کامل پیاده‌سازی کنید. وجه تمایز دو شی Mail به سه پراپرتی اول وابسته است. برای مطالعه‌ی نحوه‌ی چگونگی پیاده‌سازی این متد به این لینک مراجعه کنید.
+متدهای getter و setter خواسته شده را پیاده‌سازی کنید.
+متد toString را در قالب زیر پیاده‌سازی کنید:
+sender=Moein, receiver=Ali, content=Hello!
+Plain text
+کلاس MailService
+این کلاس بیانگر سرور ایمیل ما است. شما باید این کلاس را به صورت Singleton پیاده‌سازی کنید. برای دریافت تنها شی این کلاس باید متد getObject را به صورت static پیاده‌سازی کنید.
+
+extensionFromNameMailService.java
+import java.util.ArrayList;
+import java.util.List;
+
+public class MailService {
+    private final List<Mail> mails = new ArrayList<>();
+    private final List<User> registerUsers = new ArrayList<>();
+
+    public boolean checkUser(User user) {
+        // TODO: Implement
+    }
+
+    public List<Mail> getMails() {
+        // TODO: Implement
+    }
+
+    public List<Mail> getMails(User user) {
+        // TODO: Implement
+    }
+
+    public boolean addMail(Mail mail) {
+        // TODO: Implement
+    }
+
+    public List<User> getRegisterUsers() {
+        // TODO: Implement
+    }
+
+    public static MailService getObject() {
+        // TODO: Implement
+    }
+}
+Java
+پراپرتی‌ها
+mails: این پراپرتی از نوع لیست می‌باشد و ایمیل‌هایی که کاربران به یکدیگر ارسال می‌کنند در این لیست قرار می‌گیرد.
+registerUsers: این پراپرتی لیست کاربرانی که در سرویس ما ثبت‌نام کرده‌اند را نگهداری می‌کند.
+متدها
+getObject: این متد از نوع static است و با فراخوانی آن تنها شی ساخته شده از این کلاس را بر می‌گرداند.
+
+getMails این متد overload شده است:
+
+این متد یک ورودی از نوع User می‌گیرد و تمام ایمیل‌های ارسال شده برای این کاربر را به صورت یک لیست بر می‌گرداند. تمامی ایمیل‌های این کاربر به حالت خوانده‌شده تغییر می‌کند.
+این متد هیچ ورودی نمی‌گیرد و یک getter برای پراپرتی mails است.
+checkUser: این متد یک ورودی از نوع User می‌گیرد و بررسی می‌کند که این کاربر از قبل ثبت‌نام کرده است یا نه. اگر این کاربر در لیست ثبت‌نامی‌ها باشد، true بر می‌گرداند. در غیر این صورت false.
+
+addMail: این متد یک ورودی از نوع Mail می‌گیرد و به لیست mails اضافه می‌کند. در صورت موفقیت‌آمیز بودن اضافه کردن ایمیل true بر می‌گرداند و یکی از مقدار allowedEmails کم می‌کند. در صورت نقض هر یک از محدودیت‌های زیر false بر می‌گرداند.
+
+محدودیت‌ها:
+
+تعداد ایمیل ارسالی نباید از سقف مجاز عبور کند.
+طول محتوای ایمیل نباید از ۲۵۵ کاراکتر بیشتر باشد.
+getRegisterUsers: یک متد getter برای پراپرتی registerUsers.
+
+کلاس User
+این کلاس نیازی به پیاده‌سازی ندارد.
+
+extensionFromNameUser.java
+public class User {
+    private final String name;
+    public int allowedEmails;
+
+    public User(String name, int allowedEmails) {
+        this.name = name;
+        this.allowedEmails = allowedEmails;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+Java
+پراپرتی‌ها
+name: نام کاربر از نوع String
+allowedEmails: تعداد ایمیل‌هایی که یک کاربر می‌تواند ارسال کند.
+متدها
+getName: یک متد getter برای پراپرتی name.
+کلاس MailAgent
+اشیای این کلاس بیانگر نرم‌افزاری است که کاربر برای مدیریت ایمیل‌های خود از آن استفاده می‌کند.
+
+extensionFromNameMailAgent.java
+public class MailAgent {
+    private final User user;
+
+    private MailAgent(User user) {
+        this.user = user;
+    }
+
+    public static MailAgent createAgent(User user) {
+        // TODO: Implement
+    }
+
+    public boolean sendMail(String message, User receiver) {
+        // TODO: Implement
+    }
+
+    public String receiveMail() {
+        // TODO: Implement
+    }
+}
+Java
+پراپرتی‌ها
+user: کاربر استفاده کننده از این نرم‌افزار از نوع User
+متدها
+createAgent: این متد ابتدا معتبر بودن کاربر را به کمک متد checkUser بررسی می‌کند، اگر کاربر معتبر باشد یک شی از این کلاس را بر می‌گرداند. در غیر این صورت null بر می‌گرداند.
+sendMail: این متد پیام و گیرنده ایمیل را ورودی می‌گیرد. به کمک متد addMail در کلاس MailService یک شی از نوع Mail را ارسال می‌کند و موفقیت‌آمیز بودن یا نبودن آن را بر می‌گرداند.
+receiveMail: این متد تمام ایمیل کاربر جاری را به کمک متد getMails در کلاس MailService دریافت می‌کند و تمام ایمیل‌ها را در قالب یک رشته بر می‌گرداند.
